@@ -1,0 +1,46 @@
+<mat-table [dataSource]="dataSource">
+  
+  <ng-container matColumnDef="id">
+    <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.id }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="nombre">
+    <mat-header-cell *matHeaderCellDef>Nombre</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.nombre }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="descripcion">
+    <mat-header-cell *matHeaderCellDef>Descripción</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.descripcion }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="categoria">
+    <mat-header-cell *matHeaderCellDef>Categoría</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.categoria }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="estado">
+    <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
+    <mat-cell *matCellDef="let row">{{ row.estado }}</mat-cell>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <mat-header-cell *matHeaderCellDef>Acciones</mat-header-cell>
+    <mat-cell *matCellDef="let row">
+      <!-- Botón de Entrada -->
+      <button mat-button (click)="entradaProducto(row)">Entrada</button>
+
+      <!-- Botón de Salida -->
+      <button mat-button (click)="salidaProducto(row)">Salida</button>
+
+      <!-- Botón de Eliminar -->
+      <button mat-button (click)="eliminarProducto(row.id)">Eliminar</button>
+    </mat-cell>
+  </ng-container>
+
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+
+<button mat-raised-button (click)="crearProducto()">Crear Producto</button>

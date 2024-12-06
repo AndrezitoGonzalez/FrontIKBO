@@ -1,0 +1,100 @@
+<div mat-dialog-content>
+  <form [formGroup]="productoForm">
+    <!-- Nombre -->
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre" [readonly]="action !== 'crear'" />
+        <mat-error *ngIf="productoForm.get('nombre')?.hasError('required')">
+          El nombre es obligatorio
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Descripción -->
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName="descripcion" [readonly]="action !== 'crear'" />
+        <mat-error *ngIf="productoForm.get('descripcion')?.hasError('required')">
+          La descripción es obligatoria
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Categoría -->
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Categoría</mat-label>
+        <input matInput formControlName="categoria" [readonly]="action !== 'crear'" />
+        <mat-error *ngIf="productoForm.get('categoria')?.hasError('required')">
+          La categoría es obligatoria
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Fecha de Caducidad -->
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Fecha de Caducidad</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="fechaCaducidad" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="productoForm.get('fechaCaducidad')?.hasError('required')">
+          La fecha de caducidad es obligatoria
+        </mat-error>
+        <mat-error *ngIf="productoForm.get('fechaCaducidad')?.hasError('fechaNoMenorQueHoy')">
+          La fecha de caducidad debe ser mayor a la actual
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Cantidad Inicial -->
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad</mat-label>
+        <input matInput formControlName="cantidadInicial" type="number" [readonly]="action !== 'crear'" />
+        <mat-error *ngIf="productoForm.get('cantidadInicial')?.hasError('required')">
+          La cantidad es obligatoria
+        </mat-error>
+        <mat-error *ngIf="productoForm.get('cantidadInicial')?.hasError('min')">
+          La cantidad no puede ser negativa
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Precio Unitario -->
+    <div>
+      <mat-form-field appearance="fill">
+        <mat-label>Precio Unitario</mat-label>
+        <input matInput formControlName="precioUnitario" type="number" [readonly]="action === 'salida'" />
+        <mat-error *ngIf="productoForm.get('precioUnitario')?.hasError('required')">
+          El precio es obligatorio
+        </mat-error>
+        <mat-error *ngIf="productoForm.get('precioUnitario')?.hasError('min')">
+          El precio no puede ser negativo
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Cantidad a Entrar o Salir -->
+    <div *ngIf="action === 'entrada' || action === 'salida'">
+      <mat-form-field appearance="fill">
+        <mat-label>Cantidad a {{action === 'entrada' ? 'Entrar' : 'Salir'}}</mat-label>
+        <input matInput formControlName="cantidadCambio" type="number" />
+        <mat-error *ngIf="productoForm.get('cantidadCambio')?.hasError('required')">
+          La cantidad a {{action === 'entrada' ? 'entrar' : 'salir'}} es obligatoria
+        </mat-error>
+        <mat-error *ngIf="productoForm.get('cantidadCambio')?.hasError('min')">
+          La cantidad debe ser mayor que 0
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-button [disabled]="productoForm.invalid" (click)="onSave()">Guardar</button>
+</div>

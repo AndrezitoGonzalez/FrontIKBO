@@ -1,0 +1,14 @@
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos columnas de igual tamaño */
+    gap: 16px; /* Espaciado entre los campos */
+    margin-bottom: 16px;
+  }
+  
+  .form-item {
+    width: 100%; /* Asegura que cada campo ocupe el 100% del espacio de su celda */
+  }
+  .mat-form-field {
+    width: 100%;  /* Asegura que los campos se ajusten al contenedor */
+  }
+  
